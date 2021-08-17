@@ -5,8 +5,35 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://kit.fontawesome.com/ee3b323b80.js" crossorigin="anonymous"></script>
 </head>
 <body>
+    <div class="container">
+        <div class="headline">
+            <h1>Rock, Paper, Scissors</h1>
+        </div>
+        <div class="score">
+            <div class="player"></div>
+            <div class="computer"></div>
+            <div class="playertext"></div>
+            <div class="computertext"></div>
+            <div class="explanation"></div>
+        </div>
+        <div class="buttons">
+            <button id="rock" class="btn"><i class="fas fa-hand-rock fa-7x"></i></button>
+            <!-- <i class="far fa-hand-rock fa-7x"></i>  <i class="fas fa-hand-paper fa-7x"></i>  <i class="far fa-hand-scissors fa-7x"></i>-->
+            <button id="paper" class="btn"><i class="far fa-hand-paper fa-7x"></i></button>
+            
+            <button id="scissors" class="btn"><i class="fas fa-hand-scissors fa-7x"></i></button>
+        </div>
+        <div class="result">
+        </div>
+        <div class="reset">
+            <button id="reset" class="resetBtn"><i class="fas fa-hand-peace fa-3x"></i> Play Again?</button>
+        </div>
+    </div>
+    
     <script src="main.js"></script>
 </body>
 </html>

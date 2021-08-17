@@ -1,20 +1,45 @@
 // const computerSelection = computerPlay();
 // const playerSelection = "Rock";
-let playTurn = 1;
 let score = 0;
 let computer = 0;
+
+const playerSelection = document.querySelectorAll(".btn");
+const result = document.querySelector(".result");
+
+const player = document.querySelector(".player");
+const computerRev = document.querySelector(".computer");
+
+const playerScore = document.querySelector(".playertext");
+const computerScore = document.querySelector(".computertext");
+
+const explanation = document.querySelector(".explanation");
+
+const reset = document.querySelector("#reset");
+
+reset.addEventListener("click", resetGame);
+
+playerSelection.forEach(btn => btn.addEventListener("click", () => { 
+
+    player.innerHTML = `<i class="far fa-hand-${btn.id} fa-10x"></i>`;
+    
+    game(btn.id);
+
+    playerScore.textContent = `You: ${score}`;
+    computerScore.textContent = `Computer: ${computer}`;
+    
+}));
 
 function computerPlay() {
     let turn = Math.floor(Math.random()*3)+1;
 
     if(turn === 1){
-        return "Rock";
+        return "rock";
     } 
     else if(turn === 2){
-        return "Paper";
+        return "paper";
     } 
     else {
-        return "Scissors";
+        return "scissors";
     }
 }
 
@@ -23,95 +48,106 @@ function playRound(playerSelection, computerSelection) {
     playerSelection = playerSelection.toLowerCase();
 
     switch(computerSelection) {
-    case "Rock":
+    case "rock":
         if (playerSelection == "rock") {
-            console.log("Its a draw!");
+            explanation.textContent = "Its a draw!";
         } 
         else if (playerSelection == "paper") {
-            console.log("Congrats! Paper beats Rock!");
+            explanation.textContent = "Congrats! Paper beats Rock!";
             score++;
+            
         } 
         else if (playerSelection == "scissors") {
-            console.log("Sorry, Rock beats Scissors");
+            explanation.textContent = "Sorry, Rock beats Scissors";
             computer++;
         } 
         else {
-            console.log("Only rock paper or scissors");
+            explanation.textContent = "Only rock paper or scissors";
         }
         break;
-    case "Paper":
+    case "paper":
         if (playerSelection == "rock") {
-            console.log("Sorry, Paper beats Rock");
+            explanation.textContent = "Sorry, Paper beats Rock";
             computer++;
         } 
         else if (playerSelection == "paper") {
-            console.log("Its a draw!");
+            explanation.textContent = "Its a draw!";
         } 
         else if (playerSelection == "scissors") {
-            console.log("Congrats! Scissors beats Paper");
+            explanation.textContent = "Congrats! Scissors beats Paper";
             score++;
         } 
         else {
-            console.log("Only rock paper or scissors");
+            explanation.textContent = "Only rock paper or scissors";
         }
         break;
-    case "Scissors":
+    case "scissors":
         if (playerSelection == "rock") {
-            console.log("Congrats! Rock beats Scissors");
+            explanation.textContent = "Congrats! Rock beats Scissors";
             score++;
         }
         else if (playerSelection == "paper") {
-            console.log("Sorry, Scissors beats paper");
+            explanation.textContent = "Sorry, Scissors beats paper";
             computer++;
         } 
         else if (playerSelection == "scissors") {
-            console.log("Its a draw");
+            explanation.textContent = "Its a draw";
         } 
         else {
-            console.log("Only rock paper or scissors");
+            explanation.textContent = "Only rock paper or scissors";
         }
         break;
     default: 
-        console.log("Something went wrong");
+        explanation.textContent = "Something went wrong";
         return "invalid";
         break;
     }
 }
 
-function game() {
+function game(playerSelection) {
 
-    if(playTurn <= 5) {
+   if(score < 5 && computer < 5) {
 
-        let playerSelection = prompt("Rock Paper Scissors");
         let computerSelection = computerPlay();
+        computerRev.innerHTML = `<i class="far fa-hand-${computerSelection} fa-10x"></i>`
 
         playRound(playerSelection, computerSelection);
-        playTurn++
         
     } else {
+
         gameOver();
+
     }
 }
 
 function gameOver() {
-    if(score < computer) {
-        console.log(`You loose ${score} vs ${computer}`);
-        score = 0;
-        computer = 0;
-    } else if (score == computer) {
-        console.log(`It was a draw. Your score: ${score}, Computer: ${computer}`);
-        score = 0;
-        computer = 0;
-    } else {
-        console.log(`You WIN! ${score} vs ${computer}`);
-        score = 0;
-        computer = 0;
-    }
+        if(score < computer) {
+            result.textContent = `You loose ${score} vs ${computer}`;
+            reset.style.cssText = "visibility: visible;";
+  
+        } else if (score == computer) {
+            result.textContent = `It was a draw. Your score: ${score}, Computer: ${computer}`;
+            reset.style.cssText = "visibility: visible;";
+   
+        } else {
+            result.textContent = `You WIN! ${score} vs ${computer}`;
+            reset.style.cssText = "visibility: visible;";
+     
+        }
 }
 
-game();
-game();
-game();
-game();
-game();
-game();
+function resetGame() {
+    result.textContent = "";
+    playerScore.textContent = "";
+    computerScore.textContent = "";
+    explanation.textContent = "";
+
+    computerRev.innerHTML = "";
+    player.innerHTML = "";
+
+    reset.style.cssText = "visibility: hidden;";
+
+    score = 0;
+    computer = 0;
+
+}
